@@ -125,7 +125,7 @@
         if (!mobileMenuToggle || !nav) return;
 
         mobileMenuToggle.addEventListener('click', function () {
-            nav.classList.toggle('nav-open');
+            nav.classList.toggle('active');
             mobileMenuToggle.classList.toggle('active');
             if (overlay) overlay.classList.toggle('active');
             document.body.classList.toggle('menu-open');
@@ -133,7 +133,7 @@
 
         if (overlay) {
             overlay.addEventListener('click', function () {
-                nav.classList.remove('nav-open');
+                nav.classList.remove('active');
                 mobileMenuToggle.classList.remove('active');
                 overlay.classList.remove('active');
                 document.body.classList.remove('menu-open');

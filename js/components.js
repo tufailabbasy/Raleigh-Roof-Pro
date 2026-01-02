@@ -152,14 +152,14 @@
             // For touch devices, prevent navigation on first tap
             link.addEventListener('click', function (e) {
                 if (window.innerWidth <= 1024) {
-                    const isOpen = container.classList.contains('active');
+                    const isOpen = container.classList.contains('mobile-active');
 
                     // Close all other menus
-                    megaMenuContainers.forEach(c => c.classList.remove('active'));
+                    megaMenuContainers.forEach(c => c.classList.remove('mobile-active'));
 
                     if (!isOpen) {
                         e.preventDefault();
-                        container.classList.add('active');
+                        container.classList.add('mobile-active');
                     }
                 }
             });
@@ -168,7 +168,7 @@
         // Close menus when clicking outside
         document.addEventListener('click', function (e) {
             if (!e.target.closest('.mega-menu-container')) {
-                megaMenuContainers.forEach(c => c.classList.remove('active'));
+                megaMenuContainers.forEach(c => c.classList.remove('mobile-active'));
             }
         });
     }

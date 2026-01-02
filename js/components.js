@@ -53,18 +53,27 @@
     function init() {
         const basePath = getBasePath();
 
-        // Load header and footer
-        Promise.all([
-            loadComponent('components/header.html', 'site-header', basePath),
-            loadComponent('components/footer.html', 'site-footer', basePath)
-        ]).then(() => {
-            // Re-initialize mobile menu after header loads
-            initMobileMenu();
-            // Re-initialize mega menu hover effects
-            initMegaMenus();
-            // Initialize search functionality
-            initSearch();
-        });
+        // Check if header is already in DOM (hardcoded in page)
+        // If so, skip component loading and initialization to avoid duplicate event listeners
+        const existingHeader = document.getElementById('header');
+        const siteHeader = document.getElementById('site-header');
+        const siteFooter = document.getElementById('site-footer');
+
+        // Only load and initialize if we have placeholder elements AND no existing header
+        if (!existingHeader && (siteHeader || siteFooter)) {
+            // Load header and footer
+            Promise.all([
+                loadComponent('components/header.html', 'site-header', basePath),
+                loadComponent('components/footer.html', 'site-footer', basePath)
+            ]).then(() => {
+                // Re-initialize mobile menu after header loads
+                initMobileMenu();
+                // Re-initialize mega menu hover effects
+                initMegaMenus();
+                // Initialize search functionality
+                initSearch();
+            });
+        }
     }
 
     // Search functionality

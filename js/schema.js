@@ -256,9 +256,12 @@
             breadcrumbs.push({ name: "Home", url: businessInfo.url + "/" });
         }
 
+        const path = window.location.pathname;
+
         return {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
+            "@id": businessInfo.url + path + "#breadcrumb",
             "itemListElement": breadcrumbs.map((crumb, index) => ({
                 "@type": "ListItem",
                 "position": index + 1,

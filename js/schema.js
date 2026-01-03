@@ -226,23 +226,34 @@
         if (path.includes('/services/')) {
             breadcrumbs.push({ name: "Services", url: businessInfo.url + "/services.html" });
             const serviceName = path.split('/').pop().replace('.html', '').replace(/-/g, ' ');
-            breadcrumbs.push({
-                name: serviceName.charAt(0).toUpperCase() + serviceName.slice(1),
-                url: businessInfo.url + path
-            });
+            if (serviceName && serviceName.trim()) {
+                breadcrumbs.push({
+                    name: serviceName.charAt(0).toUpperCase() + serviceName.slice(1),
+                    url: businessInfo.url + path
+                });
+            }
         } else if (path.includes('/locations/')) {
             breadcrumbs.push({ name: "Locations", url: businessInfo.url + "/locations.html" });
             const locationName = path.split('/').pop().replace('.html', '').replace(/-/g, ' ');
-            breadcrumbs.push({
-                name: locationName.charAt(0).toUpperCase() + locationName.slice(1),
-                url: businessInfo.url + path
-            });
-        } else if (path !== '/' && path !== '/index.html') {
-            const pageName = path.replace('/', '').replace('.html', '').replace(/-/g, ' ');
-            breadcrumbs.push({
-                name: pageName.charAt(0).toUpperCase() + pageName.slice(1),
-                url: businessInfo.url + path
-            });
+            if (locationName && locationName.trim()) {
+                breadcrumbs.push({
+                    name: locationName.charAt(0).toUpperCase() + locationName.slice(1),
+                    url: businessInfo.url + path
+                });
+            }
+        } else if (path !== '/' && path !== '/index.html' && !path.endsWith('/index.html') && path.length > 1) {
+            const pageName = path.replace(/^\//, '').replace('.html', '').replace(/-/g, ' ');
+            if (pageName && pageName.trim()) {
+                breadcrumbs.push({
+                    name: pageName.charAt(0).toUpperCase() + pageName.slice(1),
+                    url: businessInfo.url + path
+                });
+            }
+        }
+
+        // Only return valid BreadcrumbList with proper itemListElement
+        if (breadcrumbs.length === 0) {
+            breadcrumbs.push({ name: "Home", url: businessInfo.url + "/" });
         }
 
         return {
